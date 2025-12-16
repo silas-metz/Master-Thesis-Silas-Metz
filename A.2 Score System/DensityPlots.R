@@ -1,11 +1,7 @@
-# ============================================================
 # CpG Punktplots (modkit extract calls) für ALLE Barcodes
 # ------------------------------------------------------------
 # - Input:  <parent_dir>/05_extract_calls/barcodeXX/*.tsv.gz
 # - Output: <parent_dir>/06_DensityPlots/barcodeXX/
-# - Rot = methyliert (call_code != "-"), Blau = unmethyliert (call_code == "-")
-# - Transparente Punkte mit vertikaler Trennung (+ oben / - unten)
-# ============================================================
 
 suppressPackageStartupMessages({
   library(readr)
@@ -16,15 +12,10 @@ suppressPackageStartupMessages({
   library(tools)
 })
 
-# -----------------------------
-# <<< USER-INPUT >>>
-# -----------------------------
+# USER-INPUT
 parent_dir <- "/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR2/CG/Hac"
 pos_path   <- "/home/drk/Age_20250326_TitrMethylPCR_ONT_IP_onlybams/TestClock.csv"
 
-# -----------------------------
-# Hilfsfunktionen
-# -----------------------------
 read_positions <- function(path) {
   message(glue("Lese Positionsdatei: {path}"))
   if (grepl("\\.csv$", path, ignore.case = TRUE)) {
@@ -87,7 +78,7 @@ empty_plot <- function(title_txt, subtitle_txt = "Keine Reads für diese Auswahl
     )
 }
 
-# >>> Punktplot mit vertikaler Trennung zwischen Meth/Unmeth
+# Punktplot
 make_pointplot <- function(df, title_txt, subtitle_txt) {
   df <- df %>% filter(!is.na(call_prob))
   if (nrow(df) == 0) return(empty_plot(title_txt, subtitle_txt))
@@ -132,9 +123,7 @@ find_tsv_for_barcode <- function(barcode_dir) {
   stop("Keine .tsv.gz in: ", barcode_dir)
 }
 
-# -----------------------------
-# MAIN
-# -----------------------------
+# Main
 calls_root   <- file.path(parent_dir, "05_extract_calls")
 output_root  <- file.path(parent_dir, "06_DensityPlots")
 dir.create(output_root, showWarnings = FALSE, recursive = TRUE)
