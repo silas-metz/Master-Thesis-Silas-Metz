@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# qc_cpg_strandwise.sh — TSV, POSIX-awk, nur 'm' (5mC), bedMethyl strikt TAB-getrennt
 set -euo pipefail
 
 usage(){ echo "Usage: $0 -b BAM -f REF.fa -p POSITIONS.csv -m BEDMETHYL -o OUT.tsv" >&2; exit 1; }
@@ -26,16 +25,13 @@ command -v samtools >/dev/null 2>&1 || { echo "[ERR] samtools not found" >&2; ex
 [ -f "${BAM}.bai" ] || [ -f "${BAM%.bam}.bai" ] || samtools index "$BAM" >/dev/null
 [ -f "${REF}.fai" ] || samtools faidx "$REF" >/dev/null
 
-# TSV-Header
 printf "chr\tcpos\tstrand\tn_reads\tfrac_with_softclip\tmedian_ref_dist_to_end\twin3_mismatch_rate\twin3_indel_rate\tvalidcov\tfail\tfail_pct\n" > "$OUT"
 
-# Feste Spalten laut deiner Spezifikation:
 VCOL=10   # Nvalid_cov
 FCOL=16   # Nfail
 STRCOL=6  # strand
 MODCOL=4  # 'm'/'h'
 
-# Contigs aus dem BAM
 HDR=$(mktemp)
 samtools view -H "$BAM" | awk '/^@SQ\tSN:/{for(i=1;i<=NF;i++){if($i ~ /^SN:/){gsub(/^SN:/,"",$i); print $i}}}' > "$HDR"
 choose_contig() {
@@ -46,7 +42,6 @@ choose_contig() {
   echo ""
 }
 
-# Positionsdatei normalisieren (Delimiter auto)
 POS_NORM=$(mktemp)
 DELIM=$(awk 'NR==1{ if(index($0,"\t")) print "TAB"; else if(index($0,";")) print "SC"; else print "CSV"; exit }' "$POS")
 if [ "$DELIM" = "TAB" ]; then FSARG=$'\t'; elif [ "$DELIM" = "SC" ]; then FSARG=';'; else FSARG=','; fi
@@ -58,7 +53,6 @@ awk -v FS="$FSARG" -v OFS="\t" '
     print chr, s, e }' "$POS" > "$POS_NORM"
 N_POS=$(wc -l < "$POS_NORM"); echo "[INFO] Positions erkannt: $N_POS; Delimiter=$DELIM" >&2
 
-# Median/Softclip aus Datei (2 Spalten: dist \t softclipflag)
 median_from_first_col() {
   f="$1"; n=$(wc -l < "$f" || echo 0)
   if [ "$n" -eq 0 ]; then echo "NA NA"; return; fi
@@ -73,11 +67,9 @@ median_from_first_col() {
   echo "$mid $sc"
 }
 
-# bedMethyl-Lookup: NUR 'm' (5mC) summieren pro C-Position (start=cpos, end=cpos+1, strand)
 lookup_bedmethyl_m_only() {
   local chr_raw="$1" str="$2" cpos="$3"
   local cpos_end=$((cpos+1))
-  # WICHTIG: FS ist TAB, nicht Komma!
   awk -v FS="\t" -v chr="$chr_raw" -v c="$cpos" -v ce="$cpos_end" -v want="$str" \
       -v vcol="$VCOL" -v fcol="$FCOL" -v scol="$STRCOL" -v mcol="$MODCOL" '
     BEGIN{vsum=0; fsum=0}
@@ -95,10 +87,8 @@ while IFS=$'\t' read -r CHR_RAW S E; do
   E1=$((E-1))  # für '-' Strang C-Pos
 
   for STR in "+" "-"; do
-    # C-Position der CpG-C-Base: + = start ; - = end-1
     if [ "$STR" = "+" ]; then CPOS="$S"; else CPOS="$E1"; fi
 
-    # (1) Reads/Softclips/Median (aus BAM)
     NREADS=0; SC_FRAC="NA"; MEDIAN="NA"
     if [ -n "$BAMCHR" ]; then
       REG="${BAMCHR}:${CPOS}-${CPOS}"
@@ -138,16 +128,13 @@ while IFS=$'\t' read -r CHR_RAW S E; do
       rm -f "$TMP"
     fi
 
-    # (2) bedMethyl: nur 'm' (5mC), TAB-getrennt parsen
     read -r VALID FAIL <<<"$(lookup_bedmethyl_m_only "$CHR_RAW" "$STR" "$CPOS")"
 
-    # (3) Prozentsatz der Failed Reads relativ zur BAM-Coverage
     RATE=$(awk -v f="$FAIL" -v n="$NREADS" 'BEGIN{ if(n>0) printf "%.4f", 100.0*f/n; else print "NA" }')
 
     # Debug
     echo "[DBG] ${CHR_RAW} C=${CPOS} STR=${STR} | reads=${NREADS} valid_m=${VALID} fail_m=${FAIL} (${RATE}%%)" >&2
 
-    # (4) TSV-Zeile
     printf "%s\t%s\t%s\t%s\t%s\t%s\tNA\tNA\t%s\t%s\t%s\n" \
       "$CHR_RAW" "$CPOS" "$STR" "$NREADS" "$SC_FRAC" "$MEDIAN" "$VALID" "$FAIL" "$RATE" >> "$OUT"
   done
