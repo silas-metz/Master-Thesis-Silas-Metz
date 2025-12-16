@@ -1,23 +1,11 @@
-#!/usr/bin/env Rscript
-# ======================================================================
-# Median(median - sd) aus summary_quantiles_by_barcode_position_start_end.csv
-#
-# Eingabe:
-#   CSV/TSV mit Header und Spalten:
-#     chrom, bed_pos, barcode, pos_type, n_reads, q05, q25, median, q75, q95, mean, sd
-#   (Trennzeichen wird automatisch erkannt)
-#
 # Ausgabe:
-#   <output_dir>/median_minus_sd_details.csv   (Original + Spalte med_minus_sd)
-#   <output_dir>/median_minus_sd_summary.csv   (eine Zeile mit Gesamtmedian)
-#
+#   <output_dir>/median_minus_sd_details.csv
+#   <output_dir>/median_minus_sd_summary.csv
+
 # Aufrufbeispiel:
 #   Rscript median_probabilities_punktesystem.R \
 #     --input "/pfad/zur/summary_quantiles_by_barcode_position_start_end.csv" \
 #     --output_dir "/pfad/zum/output"
-#
-# 
-# ======================================================================
 
 suppressWarnings(suppressMessages({
   if (!requireNamespace("data.table", quietly = TRUE)) {
@@ -25,7 +13,7 @@ suppressWarnings(suppressMessages({
   }
 }))
 
-# ---------- einfache Argument-Parsing (ohne Zusatzpakete) -------------
+# Parsing
 args <- commandArgs(trailingOnly = TRUE)
 kv <- list()
 i <- 1
@@ -60,14 +48,13 @@ get_arg <- function(key, default = NULL, required = FALSE) {
 input_file <- get_arg("input", required = TRUE)
 output_dir <- get_arg("output_dir", required = TRUE)
 
-# ---------- Checks -----------------------------------------------------
 if (!file.exists(input_file)) stop("input existiert nicht: ", input_file)
 if (!dir.exists(output_dir)) {
   dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
   if (!dir.exists(output_dir)) stop("Konnte output_dir nicht anlegen: ", output_dir)
 }
 
-# ---------- Einlesen (auto-Delimiter) ---------------------------------
+# Einlesen
 fread <- data.table::fread
 df <- tryCatch(
   fread(input_file, sep = "auto", data.table = FALSE, showProgress = FALSE),
@@ -78,25 +65,21 @@ df <- tryCatch(
 
 if (nrow(df) == 0) stop("Datei ist leer: ", input_file)
 
-# Spaltennamen vereinheitlichen
 colnames(df) <- tolower(colnames(df))
 
-# Pflichtspalten prüfen
+# Pflichtspalten
 need <- c("median", "sd")
 if (!all(need %in% colnames(df))) {
   stop("Pflichtspalten fehlen. Erwartet: ", paste(need, collapse = ", "),
        "\nGefunden: ", paste(colnames(df), collapse = ", "))
 }
 
-# Numerik erzwingen (robust ggü. Text/Factor)
 to_num <- function(x) suppressWarnings(as.numeric(x))
 df$median <- to_num(df$median)
 df$sd     <- to_num(df$sd)
 
-# ---------- Berechnung: med_minus_sd pro Zeile ------------------------
 df$med_minus_sd <- df$median - df$sd
 
-# Nur gültige Zeilen für die Gesamtkennzahl
 ok <- is.finite(df$med_minus_sd)
 
 if (!any(ok)) stop("Keine gültigen 'median - sd' Werte vorhanden (alles NA/Inf).")
