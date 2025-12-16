@@ -1,4 +1,3 @@
-# app.R
 suppressPackageStartupMessages({
   libs <- c("shiny","readr","dplyr","ggplot2","tidyr","stringr","forcats")
   to_install <- libs[!libs %in% rownames(installed.packages())]
@@ -6,8 +5,6 @@ suppressPackageStartupMessages({
   lapply(libs, require, character.only = TRUE)
 })
 
-# >>>>>>>>>>>> Die 7 Ziel-Positionen – hier leicht editierbar <<<<<<<<<<<
-# ACHTUNG: Verwende die Koordinaten GENAU so, wie sie in der bedMethyl stehen (chr, start, end).
 target_positions <- tibble::tribble(
   ~chrom, ~start,    ~end,
   "chrX", 71111367L, 71111368L,
@@ -18,10 +15,6 @@ target_positions <- tibble::tribble(
   "chrX", 71111642L, 71111643L,
   "chrX", 71111706L, 71111707L
 )
-
-# =======================
-# Hilfsfunktionen
-# =======================
 
 read_bedmethyl <- function(path) {
   df <- readr::read_tsv(path, col_names = FALSE, show_col_types = FALSE, progress = FALSE, comment = "#")
@@ -87,10 +80,7 @@ make_plot <- function(df, title_text) {
           panel.grid.minor = element_blank())
 }
 
-# =======================
-# Shiny App
-# =======================
-
+# Shiny 
 ui <- fluidPage(
   titlePanel("Vergleich bedMethyl (m) – 7 Positionen: start=Plus, start+1=Minus"),
   sidebarLayout(
