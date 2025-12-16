@@ -1,4 +1,3 @@
-#!/usr/bin/env Rscript
 suppressPackageStartupMessages({
   library(optparse)
   library(readr)
@@ -11,7 +10,6 @@ suppressPackageStartupMessages({
   library(shiny)
 })
 
-# ---------- CLI ----------
 option_list <- list(
   make_option("--input",  type="character", help="Pfad zu *F1_positions.csv"),
   make_option("--metric", type="character", default="F1_combined",
@@ -22,7 +20,6 @@ option_list <- list(
 opt <- parse_args(OptionParser(option_list=option_list))
 if (is.null(opt$input)) stop("--input fehlt", call. = FALSE)
 
-# ---------- Einlesen ----------
 read_any <- function(p, sep) {
   if (sep == "\t") readr::read_tsv(p, show_col_types = FALSE)
   else if (sep == ";") readr::read_delim(p, delim=";", show_col_types = FALSE)
@@ -30,7 +27,6 @@ read_any <- function(p, sep) {
 }
 raw <- read_any(opt$input, opt$sep)
 
-# ---------- Säubern ----------
 df <- raw %>%
   mutate(
     filter_thresh   = suppressWarnings(as.numeric(filter_thresh)),
@@ -44,17 +40,12 @@ df <- raw %>%
   filter(!is.na(filter_thresh), !is.na(mod_thresh)) %>%
   filter(toupper(file) != "SUMMARY")
 
-# ---------- CpG-Anker (Korrektur wie von dir gefordert) ----------
-# PLUS-Strang ist die kleinere Koordinate (z.B. 367), MINUS = PLUS+1 (z.B. 368).
-# -> Anker soll die PLUS-Position sein:
-#    Für '+'   : anchor_start = start - 1
-#    Für '-'   : anchor_start = start
 df <- df %>%
   mutate(
     anchor_start = ifelse(strand == "+", start - 1L, start)
   )
 
-# Positionen (über anchor_start)
+# Positionen
 pos_levels <- df %>% distinct(anchor_start) %>% arrange(anchor_start) %>% pull(anchor_start)
 if (length(pos_levels) == 0) stop("Keine Positionen gefunden (Spalte 'start').", call. = FALSE)
 pos_labels <- paste0("pos ", seq_along(pos_levels), " (", pos_levels, ")")
@@ -67,7 +58,7 @@ df <- df %>%
 
 metric_default <- match.arg(opt$metric, choices = c("F1_combined","F1_m","F1_c"))
 
-# ---------- Shiny App ----------
+# Shiny 
 ui <- fluidPage(
   titlePanel("F1 Positions Explorer (CpG-anker-korrekt)"),
   sidebarLayout(
