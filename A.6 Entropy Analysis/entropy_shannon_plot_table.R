@@ -9,9 +9,9 @@ suppressPackageStartupMessages({
 
 #INPUT
 base_dirs <- c(
-  "/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR1_5er/CG/Hac/08_Entropy",
-  "/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR2/CG/Hac/08_Entropy",
-  "/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR3/CG/Hac/08_Entropy"
+  "/path/to/input/PCR1_5er/CG/Hac/08_Entropy",
+  "/path/to/input/PCR2/CG/Hac/08_Entropy",
+  "/path/to/input/PCR3/CG/Hac/08_Entropy"
 )
 
 entropy_col    <- "median_entropy"
