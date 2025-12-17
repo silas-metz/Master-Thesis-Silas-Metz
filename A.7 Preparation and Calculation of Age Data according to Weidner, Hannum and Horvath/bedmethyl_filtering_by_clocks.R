@@ -2,10 +2,11 @@ library(readr)
 library(dplyr)
 
 # INPUT
-bedmethyl_dir <- "Q:/Main/Mol_Diag/Projekte/2024-2025_Aging/Auswertung/Age_Methylreihe_PCR_IP_SiMa_20250429/Hac_bedmethyl_als_csv_mit_krit"
-position_csv <- "Q:/Main/Mol_Diag/Personen/Zz_Studierende/Mayr_S/SilasBackup/SilasRStudio/SkriptTestDateien_csv/TestClock.csv"
+bedmethyl_dir <- "/path/to/input/bedmethyl_dir"
+position_csv <- "/path/to/clock/positions_or_clock/TestClock.csv"
 # OUTPUT
-output_dir <- "Q:/Main/Mol_Diag/Projekte/2024-2025_Aging/Auswertung/Age_Methylreihe_PCR_IP_SiMa_20250429/hac_filtered_by_PCR_Clock_mit_krit"
+output_dir <- "/path/to/output/hac_filtered_by_PCR_Clock"
+
 
 pos_df <- read_csv2(position_csv, show_col_types = FALSE)
 
