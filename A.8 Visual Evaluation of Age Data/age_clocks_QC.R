@@ -8,9 +8,10 @@ suppressPackageStartupMessages({
 # <<< USER-INPUT >>>
 # -----------------------------
 
-in_file <- "/home/drk/Masterarbeit/CASIN/20250729/Age_all_clocks_merged.csv"
+in_file <- "/path/to/input/CASIN/20250729/Age_all_clocks_merged.csv"
 
-out_dir <- "/home/drk/Masterarbeit/CASIN/20250729/Clock_QC"
+out_dir <- "/path/to/output/CASIN/20250729/Clock_QC"
+
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 age <- read_delim(
