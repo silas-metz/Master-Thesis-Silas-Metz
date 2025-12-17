@@ -6,7 +6,7 @@ suppressPackageStartupMessages({
 })
 
 # Input
-input_dir    <- "/home/drk/Masterarbeit/CASIN/Output_CG_Kontext/Hac/20250729/00_Results/Filtered_by_Weidner/noH"
+input_dir    <- "/path/to/input/CASIN/Output_CG_Kontext/Hac/20250729/00_Results/Filtered_by_Weidner/noH"
 file_pattern <- "_filtered_noH\\.csv$"
 output_dir   <- file.path(input_dir, "combined_strands")
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
