@@ -12,8 +12,8 @@ suppressPackageStartupMessages({
 
 
 # INPUT
-input_dir     <- "/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR1_5er/CG/Hac/00_Results/filtered_all"
-positions_csv <- "/home/drk/Age_20250326_TitrMethylPCR_ONT_IP_onlybams/TestClock.csv"
+input_dir     <- "/path/to/input_dir/PCR1/CG/Hac/00_Results/filtered_all"
+positions_csv <- "/path/to/clock/positions_or_clock/TestClock.csv"
 file_pattern  <- "\\.csv$"
 out_file_png  <- file.path(input_dir, "AlleBarcodes_7CpGs_percent_14bars_GT_mean_labels.png")
 out_file_pdf  <- file.path(input_dir, "AlleBarcodes_7CpGs_percent_14bars_GT_mean_labels.pdf")
