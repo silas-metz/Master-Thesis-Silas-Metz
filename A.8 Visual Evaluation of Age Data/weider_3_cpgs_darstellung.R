@@ -6,8 +6,9 @@ suppressPackageStartupMessages({
   library(stringr)
 })
 
-in_file <- "/home/drk/Masterarbeit/CASIN/20250721/Age_all_clocks_merged.csv"
-out_dir <- "/home/drk/Masterarbeit/CASIN/20250721/Clock_QC/Weidner_CpGs"
+in_file <- "/path/to/input/CASIN/20250721/Age_all_clocks_merged.csv"
+out_dir <- "/path/to/output/CASIN/20250721/Clock_QC/Weidner_CpGs"
+
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 read_age_robust <- function(path) {
