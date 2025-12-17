@@ -1,10 +1,10 @@
 set -euo pipefail
 
-IN_ROOT="/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR3/CG/Hac/03_chimeric"
-OUT_ROOT="/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR3/CG/Hac/08_Entropy"
+IN_ROOT="/path/to/input/PCR3/CG/Hac/03_chimeric"
+OUT_ROOT="/path/to/output/PCR3/CG/Hac/08_Entropy"
 
-regions_bed_file="/home/drk/Age_20250326_TitrMethylPCR_ONT_IP_onlybams/IL2RG_hg38_chrX_71111301_71111745.bed"
-ref="/home/drk/Age_20250326_TitrMethylPCR_ONT_IP_onlybams/HomoSapienshg38CLCGenomeChr.fa"
+regions_bed_file="/path/to/regions/IL2RG_hg38_chrX_71111301_71111745.bed"
+ref="/path/to/reference/HomoSapienshg38CLCGenomeChr.fa"
 
 BAM_SUFFIX="_non_chimeric.sorted.bam"
 THREADS=32
