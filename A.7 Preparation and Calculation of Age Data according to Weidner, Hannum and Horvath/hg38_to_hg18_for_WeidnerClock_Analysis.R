@@ -22,12 +22,13 @@ suppressPackageStartupMessages({
   library(tools)
 })
 
-input_dir    <- "/home/drk/Masterarbeit/CASIN/Output_CG_Kontext/Hac/20250729/00_Results/Filtered_by_Weidner/noH/combined_strands"
+input_dir    <- "/path/to/input/CASIN/Output_CG_Kontext/Hac/20250729/00_Results/Filtered_by_Weidner/noH/combined_strands"
 
 file_pattern <- "\\.csv$"
 
 # Chainfile für LiftOver hg38 -> hg19
-chain_file   <- "/home/drk/Masterarbeit/R_Scripte/hg38_to_hg19_Ref/hg38ToHg19.over.chain"
+chain_file   <- "/path/to/liftover_chain/hg38ToHg19.over.chain"
+
 
 output_dir   <- file.path(input_dir, "with_hg19_cpgid")
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
