@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-input_dir <- "/home/drk/Masterarbeit/CASIN/Output_CG_Kontext/Hac/20250729/00_Results/Filtered_by_Weidner/noH/combined_strands/with_hg19_cpgid"
+input_dir <- "/path/to/input/CASIN/Output_CG_Kontext/Hac/20250729/00_Results/Filtered_by_Weidner/noH/combined_strands/with_hg19_cpgid"
 
 file_pattern <- "_with_hg19_cpgid\\.csv$"
 
