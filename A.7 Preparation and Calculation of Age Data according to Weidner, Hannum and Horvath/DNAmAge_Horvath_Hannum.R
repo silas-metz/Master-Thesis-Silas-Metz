@@ -16,10 +16,10 @@ suppressPackageStartupMessages({
 })
 
 
-horvath_with_cpgid_dir <- "/home/drk/Masterarbeit/CASIN/Output_CG_Kontext/Hac/20250721/00_Results/Filtered_by_Horvath/noH/combined_strands/with_cpgid"
-hannum_with_cpgid_dir  <- "/home/drk/Masterarbeit/CASIN/Output_CG_Kontext/Hac/20250721/00_Results/Filtered_by_Hannum/noH/combined_strands/with_cpgid"
+horvath_with_cpgid_dir <- "/path/to/input/CASIN/Output_CG_Kontext/Hac/20250721/00_Results/Filtered_by_Horvath/noH/combined_strands/with_cpgid"
+hannum_with_cpgid_dir  <- "/path/to/input/CASIN/Output_CG_Kontext/Hac/20250721/00_Results/Filtered_by_Hannum/noH/combined_strands/with_cpgid"
 
-out_csv <- "/home/drk/Masterarbeit/CASIN/DNAmAge_Horvath_Hannum_from_ONT.csv"
+out_csv <- "/path/to/output/CASIN/DNAmAge_Horvath_Hannum_from_ONT.csv"
 
 read_clock_long <- function(dir_path) {
   if (!dir.exists(dir_path)) {
