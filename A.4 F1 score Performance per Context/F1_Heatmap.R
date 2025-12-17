@@ -5,15 +5,15 @@ suppressPackageStartupMessages({
 
 inputs <- tribble(
   ~PCR,   ~Version, ~dir,
-  "PCR1", "1.0.2",  "/home/drk/Masterarbeit/PCR_Daten/PCR1_5er/CG/Sup/04_F1_Scores/00_Results",
-  "PCR1", "1.1.1",  "/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR1_5er/CG/Sup/04_F1_Scores/00_Results",
-  "PCR2", "1.0.2",  "/home/drk/Masterarbeit/PCR_Daten/PCR2/CG/Sup/04_F1_Scores/00_Results",
-  "PCR2", "1.1.1",  "/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR2/CG/Sup/04_F1_Scores/00_Results",
-  "PCR3", "1.0.2",  "/home/drk/Masterarbeit/PCR_Daten/PCR3/CG/Sup/04_F1_Scores/00_Results",
-  "PCR3", "1.1.1",  "/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR3/CG/Sup/04_F1_Scores/00_Results"
+  "PCR1", "1.0.2",  "/path/to/input/PCR_Daten/PCR1_5er/CG/Sup/04_F1_Scores/00_Results",
+  "PCR1", "1.1.1",  "/path/to/input/PCR_Daten_dorado1.1.1/PCR1_5er/CG/Sup/04_F1_Scores/00_Results",
+  "PCR2", "1.0.2",  "/path/to/input/PCR_Daten/PCR2/CG/Sup/04_F1_Scores/00_Results",
+  "PCR2", "1.1.1",  "/path/to/input/PCR_Daten_dorado1.1.1/PCR2/CG/Sup/04_F1_Scores/00_Results",
+  "PCR3", "1.0.2",  "/path/to/input/PCR_Daten/PCR3/CG/Sup/04_F1_Scores/00_Results",
+  "PCR3", "1.1.1",  "/path/to/input/PCR_Daten_dorado1.1.1/PCR3/CG/Sup/04_F1_Scores/00_Results"
 )
 
-output_dir      <- "/home/drk/Masterarbeit/Heatmaps/CG/Sup"
+output_dir      <- "/path/to/output/Heatmaps/CG/Sup"
 metrics_to_plot <- c("F1_combined", "F1_m", "F1_c")
 
 do_cluster_rows <- TRUE
