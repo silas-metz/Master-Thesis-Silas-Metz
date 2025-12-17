@@ -9,14 +9,15 @@ suppressPackageStartupMessages({
 clock_name <- "Horvath"
 
 if (clock_name == "Horvath") {
-  clock_mapping_csv <- "/home/drk/Masterarbeit/R_Scripte/Clocks/HorvathClock_hg19_hg38.csv"
-  combined_dir      <- "/home/drk/Masterarbeit/CASIN/Output_CG_Kontext/Hac/20250729/00_Results/Filtered_by_Horvath/noH/combined_strands"
+  clock_mapping_csv <- "/path/to/clocks/HorvathClock_hg19_hg38.csv"
+  combined_dir      <- "/path/to/input/CASIN/Output_CG_Kontext/Hac/20250729/00_Results/Filtered_by_Horvath/noH/combined_strands"
 } else if (clock_name == "Hannum") {
-  clock_mapping_csv <- "/home/drk/Masterarbeit/R_Scripte/Clocks/HannumClock_hg19_hg38.csv"
-  combined_dir      <- "/home/drk/Masterarbeit/CASIN/Output_CG_Kontext/Hac/20250729/00_Results/Filtered_by_Hannum/noH/combined_strands"
+  clock_mapping_csv <- "/path/to/clocks/HannumClock_hg19_hg38.csv"
+  combined_dir      <- "/path/to/input/CASIN/Output_CG_Kontext/Hac/20250729/00_Results/Filtered_by_Hannum/noH/combined_strands"
 } else {
   stop("clock_name muss 'Horvath' oder 'Hannum' sein.")
 }
+
 
 # Output-Ordner
 output_dir <- file.path(combined_dir, "with_cpgid")
