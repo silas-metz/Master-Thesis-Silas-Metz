@@ -5,9 +5,10 @@ suppressPackageStartupMessages({
   library(ggplot2)
 })
 
-in_file <- "/home/drk/Masterarbeit/CASIN/20250721/Age_all_clocks_merged.csv"
+in_file <- "/path/to/input/CASIN/20250721/Age_all_clocks_merged.csv"
 
-out_dir <- "/home/drk/Masterarbeit/CASIN/20250721/Clock_QC/AA"
+out_dir <- "/path/to/output/CASIN/20250721/Clock_QC/AA"
+
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 out_pdf <- file.path(out_dir, "Age_AA_heatmap_zscore.pdf")
