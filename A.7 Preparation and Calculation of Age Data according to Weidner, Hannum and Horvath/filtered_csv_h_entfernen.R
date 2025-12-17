@@ -6,7 +6,7 @@ suppressPackageStartupMessages({
 })
 
 #Input
-input_dir  <- "/home/drk/Masterarbeit/CASIN/Output_CG_Kontext/Hac/20250721/00_Results/Filtered_by_Horvath"
+input_dir  <- "/path/to/input/CASIN/Output_CG_Kontext/Hac/20250721/00_Results/Filtered_by_Horvath"
 
 file_pattern <- "_filtered\\.csv$"
 
