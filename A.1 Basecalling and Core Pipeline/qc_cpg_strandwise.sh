@@ -142,4 +142,3 @@ done < "$POS_NORM"
 
 rm -f "$HDR" "$POS_NORM"
 echo "[OK] geschrieben: $OUT" >&2
-
