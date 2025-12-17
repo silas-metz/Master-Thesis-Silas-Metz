@@ -20,14 +20,15 @@ suppressPackageStartupMessages({
 })
 
 
-horvath_cpgs_csv <- "/home/drk/Masterarbeit/R_Scripte/Clocks/Horvath_CpGs.csv"
-hannum_cpgs_csv  <- "/home/drk/Masterarbeit/R_Scripte/Clocks/Hannum_CpGs.csv"
+horvath_cpgs_csv <- "/path/to/clocks/Horvath_CpGs.csv"
+hannum_cpgs_csv  <- "/path/to/clocks/Hannum_CpGs.csv"
 
 # Chainfile hg19 -> hg38
-chain_file <- "/home/drk/Masterarbeit/R_Scripte/hg38_to_hg19_Ref/hg19ToHg38.over.chain"
+chain_file <- "/path/to/liftover_chain/hg19ToHg38.over.chain"
 
-out_horvath <- "/home/drk/Masterarbeit/R_Scripte/Clocks/HorvathClock_hg19_hg38.csv"
-out_hannum  <- "/home/drk/Masterarbeit/R_Scripte/Clocks/HannumClock_hg19_hg38.csv"
+out_horvath <- "/path/to/output/clocks/HorvathClock_hg19_hg38.csv"
+out_hannum  <- "/path/to/output/clocks/HannumClock_hg19_hg38.csv"
+
 
 window_bp <- 1L
 
