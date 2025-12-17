@@ -154,64 +154,10 @@ echo "Nicht-chimäre Reads:   $NON_CHIMERIC_SORTED"
 echo "Schritt 2 abgeschlossen für Probe: $SAMPLE_NAME"
 
 
-###########################################################################################
-# 3. Step: Durchlauf des Human Variation Workflows zur Methylierungsanalyse mittels modkit.
-###########################################################################################
-
-# ============================== INPUT ===============================
-
-HUMAN_DIR=$BASE_DIR"_Human_Variation_detailed"
-
-# mkdir -p $HUMAN_DIR/$SAMPLE_NAME
-
-
-# ============================== Epi2me-Parameter ===============================
-NEXTFLOW_CMD_HUMAN="nextflow run /home/drk/epi2melabs/workflows/epi2me-labs/wf-human-variation"
-
-#Hier jeweils die Workflow Options die man benötigt auf:"true" setzen, andernfalls:"false"
-SV=false
-SNP=false
-CNV=false #to use QDNAseq instead of Spectre, use CNV=--use_qdnaseq
-STR=false
-MOD=true
-
-
-# Main Options
-BAM=$NON_CHIMERIC_SORTED
-BAM_MIN_COVERAGE=20    #Minimum benötigte read coverage festlegen; Default:20
-#BED für PCR-Produkt ist nicht die selbe wie für das Adaptive Sampling
-BED=/home/drk/Age_20250326_TitrMethylPCR_ONT_IP_onlybams/IL2RG_hg38_chrX_71111301_71111745.bed #Entsprechende Target Region BED-File angeben
-#Hier BED für Adaptive Sampling
-#BED=/home/diablo/Desktop/Age_AdapSamp_202503/Horvath_Hannum_WeidnerClocks_IL2RGex1_MT_groglei10k_SaRa_20250327.bed
-ANNOTATION=false #SnpEff annotation
-PHASED=false #Perform Phasing
-INCLUDE_ALL_CTGS=false #Call for variants on all sequences in the reference, Default:false
-OUTPUT_GENE_SUMMARY=false #If set to true, the workflow will generate gene-level coverage summaries, Default:false
-IGV=false #Visualiz eoutputs in the Epi2me IGV visualizer
-OUTPUT=$HUMAN_DIR/$SAMPLE_NAME
-
-#Copy number variant calling options
-USE_QDNASEQ=false #Use QDNAseq for CNV calling
-QDNASEQ_BIN_SIZE=500 #Bin size for QDNAseq in kbp, Default:500
-
-#Modified base calling options
-FORCE_STRAND=true  #Call strand-aware modifications, Default:false
-
-#Advanced options
-DEPTH_INTERVALS=false #Output a bedGraph file with entries for each genomic interval featuring homogeneous depth #Default:false
-GVCF=false #Enable to output a gVCF file in addition to the VCF outputs (experimental) Default:false
-DOWNSAMPLE_COVERAGE=false #Downsample the coverage to along the genome, Default:false
-DOWNSAMPLE_COVERAGE_TARGET=60 #Average coverage or reads to use for the analysis #Default:60
-
-# Multiprocessing Options
-UBAM_MAP_THREADS=8 #Set max number of threads to use for aligning reads from uBam, Default:8
-UBAM_SORT_THREADS=3 #Set max number of threads to use for sorting and indexing aligned reads from uBAM, Default:3
-UBAM_BAM2FQ_THREADS=1 #Set max number of threads to use for uncompressing uBAM and generating FASTQ for alignment, Default:1
-MODKIT_THREADS=4 #Total number of threads to use in modkit modified base calling, Default:4
+# Methylation calling
 
 
 # Kommando ausführen
-#$NEXTFLOW_CMD_HUMAN 
 modkit pileup \
 --cpg \
 --ref $REF \
