@@ -22,12 +22,12 @@ if [ -z "$SAMPLE_NAME" ]; then
 fi
 
 # ============================== PFADSETUP ===============================
-BASE_DIR=/home/drk/Masterarbeit/CASIN/Output_CG_Kontext/Hac/20250729
+BASE_DIR=/path/to/input/folder
 SAMPLE_DIR=$BASE_DIR/$SAMPLE_NAME
 ALIGNMENT_DIR=$BASE_DIR/"01_Alignment"
 MERGED_DIR_BAM=$BASE_DIR/"02_BAM_merged"
 
-REF="/home/drk/Age_20250326_TitrMethylPCR_ONT_IP_onlybams/HomoSapienshg38CLCGenomeChr.fa"
+REF=/path/to/HomoSapienshg38CLCGenomeChr.fa
 OUT_DIR=$ALIGNMENT_DIR/$SAMPLE_NAME
 
 mkdir -p $OUT_DIR
