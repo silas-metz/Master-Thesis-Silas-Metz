@@ -13,8 +13,8 @@ suppressPackageStartupMessages({
 })
 
 # USER-INPUT
-parent_dir <- "/home/drk/Masterarbeit/PCR_Daten_dorado1.1.1/PCR2/CG/Hac"
-pos_path   <- "/home/drk/Age_20250326_TitrMethylPCR_ONT_IP_onlybams/TestClock.csv"
+parent_dir <- "/path/to/parent_dir/PCR2/CG/Hac"
+pos_path   <- "/path/to/clock/positions_or_clock/TestClock.csv"
 
 read_positions <- function(path) {
   message(glue("Lese Positionsdatei: {path}"))
