@@ -155,7 +155,7 @@ echo "Schritt 2 abgeschlossen für Probe: $SAMPLE_NAME"
 
 
 # Methylation calling
-
+BAM=$NON_CHIMERIC_SORTED
 
 # Kommando ausführen
 modkit pileup \
